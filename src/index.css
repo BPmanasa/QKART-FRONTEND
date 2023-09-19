@@ -13,3 +13,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@media screen and (min-width: 768px) {
+  .form{
+      flex-direction: row; /* Horizontal layout */
+      justify-content: flex-end; /* Push the form to the end */
+      padding: 20px; /* Add spacing as needed */
+    }
+  }
+
