@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -18,6 +19,7 @@ const Register = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +46,7 @@ const Register = () => {
         //   confirmPassword:""
         // });
         enqueueSnackbar("Registered Successfully", {variant: "success"});
-  
-        // history.push("/login");
+        history.push("/login");
   
       }
       catch(e){
@@ -147,9 +148,9 @@ const Register = () => {
           </Button>
           <p className="secondary-action">
             Already have an account?{" "}
-            <a className="link" href="#">
+            <Link className="link" to='/login'>
               Login here
-            </a>
+            </Link>
           </p>
         </Stack>
       </Box>

@@ -8,16 +8,27 @@
     background: #ffffff;
 }
 
+/* .username{
+    align-items: center;
+} */
+
 .username-text {
     display: none;
+    /* align-items: center; */
+    
 }
 
 .header-title {
     cursor: pointer;
 }
 
-.explore-button {
+.explore-button1 {
     color: #00a278 !important;
+  
+}
+.explore-button2 {
+   
+    color:#ffffff !important
 }
 
 @media screen and (min-width: 768px) {

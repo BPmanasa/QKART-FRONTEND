@@ -2,9 +2,61 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Avatar, Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
+import { useHistory, Link } from "react-router-dom";
+
 import "./Header.css";
 
 const Header = ({ children, hasHiddenAuthButtons }) => {
+  const history = useHistory();
+  const isLoggedIn = localStorage.getItem("token");
+  const userName = localStorage.getItem("username");
+
+if(!hasHiddenAuthButtons){
+  return (
+    <Box className="header">
+      <Box className="header-title">
+          <img src="logo_light.svg" alt="QKart-icon"></img>
+      </Box>
+      <Stack flexDirection='row' spacing={1} alignItems='center'>
+        {isLoggedIn ? 
+        <>
+          <Avatar
+            src='avatar.png/'
+            alt={userName}></Avatar>
+            <p class="username">{userName}</p>
+            <><Button onClick={() => {
+              localStorage.clear()
+              window.location.reload()
+            } }>Logout
+            </Button></></>
+            :<><Button
+            className="explore-button1"
+            startIcon={<ArrowBackIcon />}
+            variant="text"
+            onClick={() => {
+           history.push('/login');
+        }}
+      > 
+      Login
+      </Button>
+      <Button
+        className="explore-button2"
+        startIcon={<ArrowBackIcon />}
+        variant='contained'
+        onClick={() =>{
+          history.push('/register');
+        }}
+      >
+        Register
+       </Button></>
+      }
+      </Stack>
+    </Box>
+  );
+
+}
+
+  
     return (
       <Box className="header">
         <Box className="header-title">
@@ -14,9 +66,12 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
           className="explore-button"
           startIcon={<ArrowBackIcon />}
           variant="text"
+          onClick={() =>{
+            history.push('/');
+          }}
         >
           Back to explore
-        </Button>
+          </Button>
       </Box>
     );
 };
