@@ -30,6 +30,7 @@
 .link {
   font-weight: 700;
   text-decoration: none;
+  color: #45c09f;
 }
 
 .link:focus {
@@ -44,19 +45,16 @@
   color: #45c09f;
 }
 
-/* .button {
-  background-color: #00a278 !important;
+.button {
+    background-color: #00a278 !important;
 }
 
 .button:hover {
-  background-color: #00845c !important;
-} */
+    background-color: #00845c !important;
+}
 
 @media screen and (min-width: 768px) {
-  .content {
-      justify-content: flex-end;
-  }
   .form {
-      min-width: 24rem;
+    min-width: 24rem;
   }
 }

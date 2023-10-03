@@ -1,15 +1,14 @@
 import { AddShoppingCartOutlined } from "@mui/icons-material";
-import { Box } from "@mui/system";
 import {
   Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
   Rating,
   Typography,
 } from "@mui/material";
+
 import React, { useState } from "react";
 // import React from "react";
 
@@ -39,4 +38,3 @@ const ProductCard = ({ productData }) => {
 };
 
 export default ProductCard;
-
