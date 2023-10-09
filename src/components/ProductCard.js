@@ -13,13 +13,13 @@ import React, { useState } from "react";
 // import React from "react";
 
 import "./ProductCard.css";
-const ProductCard = ({ productData }) => {
+const ProductCard = ({ productData, handleAddToCart}) => {
   return (
     <Card className="card">
       <CardMedia image={productData.image} alt={productData.name} component="img" />
       <CardContent>
         <Typography>{productData.name}</Typography>
-        <Typography fontWeight={700}>$ {productData.cost}</Typography>
+        <Typography fontWeight={700}>${productData.cost}</Typography>
         <Rating readOnly precesion={0.5} defaultValue={productData.rating} name="half-rating" />
       </CardContent>
       <CardActions className="card-actions">
@@ -29,6 +29,7 @@ const ProductCard = ({ productData }) => {
           fullWidth={true}
           startIcon={<AddShoppingCartOutlined />}
           type="submit"
+          onClick={handleAddToCart}
         >
           Add to cart
         </Button>

@@ -50,10 +50,6 @@ const Checkout = () => {
 
 
 
-
-
-
-
   return (
     <>
       <Header />
@@ -83,10 +79,10 @@ const Checkout = () => {
 
             <Box my="1rem">
               <Typography>Wallet</Typography>
-              <Typography>
+              {/* <Typography>
                 Pay ${getTotalCartValue(items)} of available $
                 {localStorage.getItem("balance")}
-              </Typography>
+              </Typography> */}
             </Box>
 
             <Button
@@ -97,9 +93,9 @@ const Checkout = () => {
             </Button>
           </Box>
         </Grid>
-        <Grid item xs={12} md={3} bgcolor="#E9F5E1">
+        {/* <Grid item xs={12} md={3} bgcolor="#E9F5E1">
           <Cart isReadOnly products={products} items={items} />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Footer />
     </>

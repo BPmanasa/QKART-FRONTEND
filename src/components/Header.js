@@ -32,14 +32,13 @@ if(!hasHiddenAuthButtons){
       </Box>
       {children}
     
-      <Stack flexDirection='row' spacing={1} alignItems='center'>
+      <Stack direction='row' spacing={1} alignItems='center'>
       {/* <TextField />
         */}
         {isLoggedIn ? 
         <>
-      
           <Avatar
-            src='avatar.png/'
+            src='avatar.png'
             alt={userName}></Avatar>
             <p class="username">{userName}</p>
             <><Button onClick={() => {
@@ -48,18 +47,16 @@ if(!hasHiddenAuthButtons){
             } }>Logout
             </Button></></>
             :<><Button
-            className="explore-button1"
-            startIcon={<ArrowBackIcon />}
             variant="text"
             onClick={() => {
            history.push('/login');
+
         }}
       > 
       Login
       </Button>
       <Button
         className="explore-button2"
-        startIcon={<ArrowBackIcon />}
         variant='contained'
         onClick={() =>{
           history.push('/register');
