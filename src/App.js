@@ -30,7 +30,7 @@ function App() {
           <Checkout />
         </Route>
       </Switch>
-      {/* <Products /> */}
+    
     </div>
   );
 }

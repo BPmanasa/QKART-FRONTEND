@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Button, IconButton, Stack } from "@mui/material";
 import { Box } from "@mui/system";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardActions,
@@ -16,8 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 import "./Cart.css";
-
-
 
 // Definition of Data Structures used
 /**
@@ -58,12 +56,12 @@ import "./Cart.css";
  */
 
 export const generateCartItemsFrom = (cartData, productsData) => {
-if(!cartData)return;
-const mergeCart = cartData.map((item) => ({
-  ...item,
-  ...productsData.find((product) => item.productId===product._id)
-}));
-return mergeCart;
+  if (!cartData) return;
+  const mergeCart = cartData.map((item) => ({
+    ...item,
+    ...productsData.find((product) => item.productId === product._id),
+  }));
+  return mergeCart;
 };
 
 /**
@@ -77,7 +75,9 @@ return mergeCart;
  *
  */
 export const getTotalCartValue = (items = []) => {
-  const total = items.map((item) => item.cost*item.qty).reduce((total,n) => total+n,0);
+  const total = items
+    .map((item) => item.cost * item.qty)
+    .reduce((total, n) => total + n, 0);
   return total;
 };
 
@@ -125,11 +125,11 @@ const ItemQuantity = ({ value, handleAdd, handleDelete }) => {
  *
  *
  */
-const Cart = ({ products, items = [], handleQuantity, }) => {
+const Cart = ({ products, items = [], handleQuantity }) => {
   const history = useHistory();
 
-  const moveToCheckout = () =>{
-    history.push("/checkout", {from : "products"});
+  const moveToCheckout = () => {
+    history.push("/checkout", { from: "products" });
   };
   const token = localStorage.getItem("token");
   if (!items.length) {
@@ -140,141 +140,70 @@ const Cart = ({ products, items = [], handleQuantity, }) => {
           Cart is empty. Add more items to the cart to checkout.
         </Box>
       </Box>
-
     );
   }
-
-
-  // return (
-  //   <>
-  //       <Box className="cart" alignItems="center">
-  //         {/* TODO: CRIO_TASK_MODULE_CART - Display view for each cart item with non-zero quantity */}
-  //         {items.map((cartItem)=>(
-  //         <Box
-  //           key={cartItem.productId}
-  //           padding="1rem"
-  //           display="flex"
-  //           justifyContent="space-between"
-  //           alignItems="center"
-  //         > 
-  //         { cartItem.qty ?
-  //           <Box display="flex" alignItems="flex-start" padding="1rem">
-  //             <Box className="image-container">
-  //               <img
-  //                 // Add product image
-  //                 src={cartItem.image}
-  //                 // Add product name as alt eext
-  //                 alt={cartItem.name}
-  //                 width="100%"
-  //                 height="100%"
-  //               />
-  //             </Box>
-  //             <Box
-  //               display="flex"
-  //               flexDirection="column"
-  //               justifyContent="space-between"
-  //               height="6rem"
-  //               paddingX="1rem"
-  //             >
-  //               <div>{cartItem.name}</div>
-  //               <Box
-  //                 display="flex"
-  //                 justifyContent="space-between"
-  //                 alignItems="center"
-  //               >
-  //                 <ItemQuantity
-  //                  value={cartItem.qty}
-  //                  handleAdd={async() => {await handleQuantity(token, items, products,cartItem.productId, cartItem.qty+1)}}
-  //                   handleDelete={async() => {await handleQuantity(token, items, products,cartItem.productId, cartItem.qty-1)}}
-  //                 />
-  //                 <Box padding="0.5rem" fontWeight="700">
-  //                   ${cartItem.cost}
-  //                 </Box>
-  //               </Box>
-  //             </Box>
-  //           </Box>
-  //           :null}
-  //         </Box>
-  //         ))}
-  //         <Box
-  //     display="flex"
-  //     justifyContent="space-between"
-  //     alignItems="center"
-  //     padding="1rem"
-  //   >
-  //         <Box color="#3C3C3C" alignSelf="center" >
-  //             Order total
-  //           </Box>
-  //           <Box
-  //             color="#3C3C3C"
-  //             fontWeight="700"
-  //             fontSize="1.5rem"
-  //             alignSelf="center"
-  //             data-testid="cart-total"
-  //             display="flex"
-  //             justifyContent="flex-end"
-  //           >
-  //             ${getTotalCartValue(items)}
-  //           </Box>
-  //           </Box>
-          
-  //         <Box display="flex" justifyContent="flex-end" className="cart-footer">
-  //           <Button
-  //             color="primary"
-  //             variant="contained"
-  //             startIcon={<ShoppingCart />}
-  //             className="checkout-btn"
-  //             onClick={moveToCheckout}
-  //           >
-  //             checkout
-  //           </Button>
-  //         </Box>
-  //         </Box>
-
-  //   </>
-  //  );
   return (
     <>
       <Box className="cart">
         {/* TODO: CRIO_TASK_MODULE_CART - Display view for each cart item with non-zero quantity */}
-        {items.map((item)=>(
-          
-   <Box display="flex" alignItems="flex-start" padding="1rem" key={item.productId}>
-    <Box className="image-container">
-        <img
-            // Add product image
-            src={item.image}
-            // Add product name as alt eext
-            alt={item.name}
-            width="100%"
-            height="100%"
-        />
-    </Box>
-    <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        height="6rem"
-        paddingX="1rem"
-    >
-        <div>{item.name}</div>
-        <Box
+        {items.map((item) => (
+          <Box
             display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-        >
-        <ItemQuantity
-        // Add required props by checking implementation
-            value={item.qty}
-            handleAdd={async () => {await handleQuantity(token,items,products,item.productId, item.qty + 1);}}
-            handleDelete={async () => {await handleQuantity(token,items,products,item.productId, item.qty - 1);}}
-        />
-        <Box padding="0.5rem" fontWeight="700">
-            ${item.cost}
-        </Box>
-        </Box>
-    </Box>
-</Box>
+            alignItems="flex-start"
+            padding="1rem"
+            key={item.productId}
+          >
+            <Box className="image-container">
+              <img
+                // Add product image
+                src={item.image}
+                // Add product name as alt eext
+                alt={item.name}
+                width="100%"
+                height="100%"
+              />
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+              height="6rem"
+              paddingX="1rem"
+            >
+              <div>{item.name}</div>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <ItemQuantity
+                  // Add required props by checking implementation
+                  value={item.qty}
+                  handleAdd={async () => {
+                    await handleQuantity(
+                      token,
+                      items,
+                      products,
+                      item.productId,
+                      item.qty + 1
+                    );
+                  }}
+                  handleDelete={async () => {
+                    await handleQuantity(
+                      token,
+                      items,
+                      products,
+                      item.productId,
+                      item.qty - 1
+                    );
+                  }}
+                />
+                <Box padding="0.5rem" fontWeight="700">
+                  ${item.cost}
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         ))}
         <Box
           padding="1rem"
@@ -308,8 +237,9 @@ const Cart = ({ products, items = [], handleQuantity, }) => {
           </Button>
         </Box>
       </Box>
-    </>
-  );
+          
+    </>
+  );
 };
 
 export default Cart;
