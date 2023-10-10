@@ -81,6 +81,13 @@ export const getTotalCartValue = (items = []) => {
   return total;
 };
 
+export const getTotalItems = (items = []) => {
+  const total = items
+    .map((item) => item.qty)
+    .reduce((total, n) => total + n, 0);
+  return total;
+};
+
 /**
  * Component to display the current quantity for a product and + and - buttons to update product quantity on cart
  *
@@ -95,7 +102,15 @@ export const getTotalCartValue = (items = []) => {
  *
  *
  */
-const ItemQuantity = ({ value, handleAdd, handleDelete }) => {
+const ItemQuantity = ({ value, handleAdd, handleDelete, isReadOnly}) => {
+  if(isReadOnly){
+    return (<Box>
+      Qty:{value}
+    </Box>)
+    
+  }
+   
+
   return (
     <Stack direction="row" alignItems="center">
       <IconButton size="small" color="primary" onClick={handleDelete}>
@@ -125,7 +140,13 @@ const ItemQuantity = ({ value, handleAdd, handleDelete }) => {
  *
  *
  */
-const Cart = ({ products, items = [], handleQuantity }) => {
+const Cart = ({
+  products,
+  items = [],
+  handleQuantity,
+  isReadOnly=false,
+  hasCheckoutButton=false
+}) => {
   const history = useHistory();
 
   const moveToCheckout = () => {
@@ -144,7 +165,7 @@ const Cart = ({ products, items = [], handleQuantity }) => {
   }
   return (
     <>
-      <Box className="cart">
+    <Box className="cart">
         {/* TODO: CRIO_TASK_MODULE_CART - Display view for each cart item with non-zero quantity */}
         {items.map((item) => (
           <Box
@@ -177,7 +198,8 @@ const Cart = ({ products, items = [], handleQuantity }) => {
                 alignItems="center"
               >
                 <ItemQuantity
-                  // Add required props by checking implementation
+                  // Add required props by checking implementati
+                  isReadOnly={isReadOnly}
                   value={item.qty}
                   handleAdd={async () => {
                     await handleQuantity(
@@ -224,20 +246,68 @@ const Cart = ({ products, items = [], handleQuantity }) => {
             ${getTotalCartValue(items)}
           </Box>
         </Box>
-
-        <Box display="flex" justifyContent="flex-end" className="cart-footer">
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={moveToCheckout}
-            startIcon={<ShoppingCart />}
-            className="checkout-btn"
-          >
-            Checkout
-          </Button>
-        </Box>
+         {hasCheckoutButton && (
+          <Box display="flex" justifyContent="flex-end" className="cart-footer">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={moveToCheckout}
+              startIcon={<ShoppingCart />}
+              className="checkout-btn"
+            >
+              Checkout
+            </Button>
+          </Box>)
+        }
+      
       </Box>
-          
+      <Box>
+          {isReadOnly && 
+          (<Box className="cart" padding="1rem">
+            <h2>Order Details</h2>
+            <Box
+              classname="cart-row"
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="space-between"
+            >
+              <p>Products</p>
+              <p>{getTotalItems(items)}</p>
+            </Box>
+            <Box
+              classname="cart-row"
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="space-between"
+            >
+              <p>Subtotal</p>
+              <p>${getTotalCartValue(items)}</p>
+            </Box>
+            <Box
+              classname="cart-row"
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="space-between"
+            >
+              <p>Shipping Charges</p>
+              <p>$0</p>
+            </Box>
+            <Box
+              classname="cart-row"
+              fontSize="1.25rem"
+              fontWeight="700"
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="space-between"
+            >
+              <p>Total</p>
+              <p>${getTotalCartValue(items)}</p>
+            </Box>
+          </Box>)
+     }
+        
+      </Box>
+      
     </>
   );
 };

@@ -6,6 +6,8 @@ import Products from "./components/Products";
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Checkout from './components/Checkout';
+import Thanks from './components/Thanks';
+
 
 
 export const config = {
@@ -28,6 +30,9 @@ function App() {
         </Route>
         <Route path = '/checkout'>
           <Checkout />
+        </Route>
+        <Route path = '/thanks'>
+          <Thanks />
         </Route>
       </Switch>
     

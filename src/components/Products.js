@@ -208,6 +208,7 @@ const Products = () => {
           },
         }
       );
+
       const cartDetails = generateCartItemsFrom(response.data, products);
       setItems(cartDetails);
       return response.data;
@@ -278,6 +279,7 @@ const Products = () => {
                 productData.map((product) => (
                   <Grid key={product._id} item xs={6} md={3}>
                     <ProductCard
+                      hasCheckoutButton
                       productData={product}
                       handleAddToCart={async () => {
                         await addToCart(
@@ -304,6 +306,7 @@ const Products = () => {
         {token ? (
           <Grid item xs={12} md={3} bgcolor="#E9F5E1">
             <Cart
+             hasCheckoutButton
               products={productData}
               items={items}
               handleQuantity={addToCart}
